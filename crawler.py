@@ -53,6 +53,8 @@ class WosCrawler:
         print("Restart driver")
         self.driver = self.init_driver(headless=headless)
 
+    import mysql.connector
+
     def fetch_info(self):
         """
         尝试获取所有需爬取机构的信息
@@ -70,7 +72,13 @@ class WosCrawler:
             return []
         else:
             try:
-                conn = sqlite3.connect('data.db')
+                # 连接到MySQL数据库
+                conn = mysql.connector.connect(
+                    host='localhost',  # 数据库地址
+                    user='root',       # MySQL用户名
+                    password='password',  # MySQL密码
+                    database='your_database'  # 数据库名称
+                )
                 cursor = conn.cursor()
                 cursor.execute('''
                     SELECT school, address, url, result_count, page_count 
@@ -192,6 +200,11 @@ class WosCrawler:
         # //div[@data-ta="filter-section-PY"]//button[@data-ta="see-all"]
         # //ul[@class="refine-options"]
         # //ul[@class="refine-options"]//li
+         # 这里可以将查询条件插入到URL或请求中
+        query = 'TS=(biomedical) AND PY=(2020-2024)'
+        url = f'{base_url}?query={query}&page=1'
+        self.driver.get(url)
+        # 继续爬取页面的逻辑
         def select_year(year_id):
             """选择年份"""
             # //div[contains(@class,"refine-terms")]//button[@mat-button]
@@ -393,10 +406,15 @@ class WosCrawler:
 
     def set_crawled(self, address, url=None, result_count=None, page_count=None, crawled_or_not=1):
         try:
-            conn = sqlite3.connect('data.db')
+            conn = mysql.connector.connect(
+                host='localhost',  # 数据库地址
+                user='root',       # MySQL用户名
+                password='13374285',  # MySQL密码
+                database='your_database'  # 数据库名称
+            )
             cursor = conn.cursor()
             cursor.execute('''
-                UPDATE infos SET crawled_or_not = ?, url = ?, result_count = ?, page_count = ? WHERE address = ?;
+                UPDATE infos SET crawled_or_not = %s, url = %s, result_count = %s, page_count = %s WHERE address = %s;
             ''', (crawled_or_not, url, result_count, page_count, address))
             conn.commit()
         except Exception as e:
@@ -404,6 +422,7 @@ class WosCrawler:
             print("Error setting crawled:", e)
         finally:
             conn.close()
+
 
     def crawl_page(self, address):
         # Extract data from the page
