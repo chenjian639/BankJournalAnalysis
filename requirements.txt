@@ -1,14 +1,27 @@
-# Êý¾Ý´¦Àí 
-pandas
-numpy
-scipy
- 
-# ÎÄ±¾´¦ÀíÓëNLP 
-scikit-learn
-nltk
-gensim
- 
-# ¿ÉÊÓ»¯ 
-matplotlib
-seaborn
-plotly
+# æ•°æ®å¤„ç†
+pandas>=1.5.0
+numpy>=1.21.0
+scipy>=1.9.0
+
+# æ–‡æœ¬å¤„ç†ä¸ŽNLP
+scikit-learn>=1.2.0
+nltk>=3.8.0
+gensim>=4.3.0
+spacy>=3.5.0
+textblob>=0.17.1
+
+# å¯è§†åŒ–
+matplotlib>=3.6.0
+seaborn>=0.12.0
+plotly>=5.13.0
+wordcloud>=1.9.0
+
+# ç½‘ç»œåˆ†æž
+networkx>=2.8.0
+
+# è¿›åº¦æ¡
+tqdm>=4.64.0
+
+# Jupyter
+jupyter>=1.0.0
+ipykernel>=6.0.0
