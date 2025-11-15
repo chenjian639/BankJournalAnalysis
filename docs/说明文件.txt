@@ -1,0 +1,19 @@
+data_loader/ :加载数据
+analysis/：  指标计算文件
+main.py :主函数
+
+字段：
+标题（title）
+摘要（abstract_text）
+发表日期（publish_date）
+期刊名称（journal）
+卷号（volume）、期号（issue）、页码（pages）
+DOI 编号（doi）
+所属国家（country）
+
+作者姓名（name）
+所属机构（affiliation，即你关注的 “机构” 信息）
+邮箱（email）
+研究领域（research_field）
+
+关键词（word）
